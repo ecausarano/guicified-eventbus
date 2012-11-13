@@ -1,15 +1,14 @@
 package org.robotninjas.guicebus.example;
 
+import com.google.common.collect.Multimap;
 import com.google.common.util.concurrent.Service;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.robotninjas.guicebus.CommandModule;
-import org.robotninjas.guicebus.CommandRegistration;
-import org.robotninjas.guicebus.GuiceInjectedEventBus;
-import org.robotninjas.guicebus.example.controller.Command;
+import org.robotninjas.guicebus.*;
+import org.robotninjas.guicebus.example.controller.Command1;
 import org.robotninjas.guicebus.example.controller.Command2;
-import org.robotninjas.guicebus.example.event.Event;
+import org.robotninjas.guicebus.example.event.Event1;
 import org.robotninjas.guicebus.example.event.Event2;
 import org.robotninjas.guicebus.example.service.DatabaseService;
 import org.robotninjas.guicebus.example.service.DatabaseServiceImpl;
@@ -28,9 +27,9 @@ public class TestApplication extends AbstractModule {
     final Injector injector = Guice.createInjector(
         new TestApplication(),
         new CommandModule(new CommandRegistration() {
-          @Override public void configure(GuiceInjectedEventBus eventBus) {
-            eventBus.register(Command.class, Event.class);
-            eventBus.register(Command2.class, Event2.class);
+          @Override public void configure(Multimap<Class<? extends Command>, Class<? extends Event>> eventMap) {
+            eventMap.put(Command1.class, Event1.class);
+            eventMap.put(Command2.class, Event2.class);
           }
         }));
 

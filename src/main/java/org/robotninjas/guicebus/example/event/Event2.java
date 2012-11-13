@@ -1,6 +1,8 @@
 package org.robotninjas.guicebus.example.event;
 
-public class Event2 {
+import org.robotninjas.guicebus.*;
+
+public class Event2 implements Event {
 
   private final String msg;
 

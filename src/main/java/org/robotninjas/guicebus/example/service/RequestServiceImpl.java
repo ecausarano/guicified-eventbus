@@ -2,7 +2,7 @@ package org.robotninjas.guicebus.example.service;
 
 import com.google.common.util.concurrent.AbstractService;
 import org.robotninjas.guicebus.GuiceInjectedEventBus;
-import org.robotninjas.guicebus.example.event.Event;
+import org.robotninjas.guicebus.example.event.Event1;
 import org.robotninjas.guicebus.example.event.Event2;
 
 import javax.inject.Inject;
@@ -25,7 +25,7 @@ public class RequestServiceImpl extends AbstractService implements RequestServic
 
   @Override public void processRequest(int num) {
     logger.info("processing request");
-    eventBus.post(new Event(num));
+    eventBus.post(new Event1(num));
   }
 
   @Override public void processMessage(String msg) {

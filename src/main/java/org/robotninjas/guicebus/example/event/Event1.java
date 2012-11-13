@@ -1,10 +1,12 @@
 package org.robotninjas.guicebus.example.event;
 
 
-public class Event {
+import org.robotninjas.guicebus.Event;
+
+public class Event1 implements Event {
   private final int msg;
 
-  public Event(int msg) {
+  public Event1(int msg) {
     this.msg = msg;
   }
 

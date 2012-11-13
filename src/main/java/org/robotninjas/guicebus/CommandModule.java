@@ -1,5 +1,8 @@
 package org.robotninjas.guicebus;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
@@ -19,7 +22,9 @@ public class CommandModule extends AbstractModule {
 
   protected @Provides @Singleton GuiceInjectedEventBus createEventBus(Injector injector) {
     final GuiceInjectedEventBus eventBus = new GuiceInjectedEventBus(injector);
-    registration.configure(eventBus);
+    final Multimap<Class<? extends Command>, Class<? extends Event>> eventMap = HashMultimap.create();
+    registration.configure(eventMap);
+    eventBus.register(eventMap);
     return eventBus;
   }
 

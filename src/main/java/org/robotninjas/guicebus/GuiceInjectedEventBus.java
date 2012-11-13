@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
+import java.util.Map;
 
 public class GuiceInjectedEventBus {
 
@@ -19,7 +20,7 @@ public class GuiceInjectedEventBus {
     this.eventHandlerMap = ArrayListMultimap.create();
   }
 
-  public void register(Class<?> handler, Class<?> event) {
+  void register(Class<? extends Command> handler, Class<? extends Event> event) {
 
     boolean found = false;
     for (final Method method : handler.getMethods()) {
@@ -46,7 +47,13 @@ public class GuiceInjectedEventBus {
 
   }
 
-  public void unregister(Class<?> handler, Class<?> event) {
+  void register(Multimap<Class<? extends Command>, Class<? extends Event>> eventMap) {
+    for (final Map.Entry<Class<? extends Command>, Class<? extends Event>> entry: eventMap.entries()) {
+      register(entry.getKey(), entry.getValue());
+    }
+  }
+
+  public void unregister(Class<? extends Command> handler, Class<? extends Event> event) {
 
     final Iterator<Method> methodItr = eventHandlerMap.get(event.getClass()).iterator();
     while (methodItr.hasNext()) {

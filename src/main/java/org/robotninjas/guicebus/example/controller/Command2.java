@@ -1,12 +1,12 @@
 package org.robotninjas.guicebus.example.controller;
 
-import org.robotninjas.guicebus.Subscribe;
+import org.robotninjas.guicebus.*;
 import org.robotninjas.guicebus.example.event.Event2;
 
 import javax.inject.Inject;
 import java.util.logging.Logger;
 
-public class Command2 {
+public class Command2 implements Command {
 
   @Inject Logger logger;
 
