@@ -1,31 +1,18 @@
 package org.robotninjas.guicebus;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 import com.google.inject.AbstractModule;
-import com.google.inject.Injector;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
 
 public class CommandModule extends AbstractModule {
 
-  private final CommandRegistration registration;
+  private final CommandContext context;
 
-  public CommandModule(CommandRegistration registration) {
-    this.registration = registration;
+  public CommandModule(CommandContext context) {
+    this.context = context;
   }
 
   @Override protected void configure() {
-
-  }
-
-  protected @Provides @Singleton GuiceInjectedEventBus createEventBus(Injector injector) {
-    final GuiceInjectedEventBus eventBus = new GuiceInjectedEventBus(injector);
-    final Multimap<Class<? extends Command>, Class<? extends Event>> eventMap = HashMultimap.create();
-    registration.configure(eventMap);
-    eventBus.register(eventMap);
-    return eventBus;
+    bind(CommandContext.class).toInstance(context);
+    bind(CommandBus.class).toProvider(CommandBusProvider.class).asEagerSingleton();
   }
 
 }

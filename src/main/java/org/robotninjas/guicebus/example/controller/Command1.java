@@ -1,6 +1,5 @@
 package org.robotninjas.guicebus.example.controller;
 
-
 import org.robotninjas.guicebus.Command;
 import org.robotninjas.guicebus.Subscribe;
 import org.robotninjas.guicebus.example.event.Event1;

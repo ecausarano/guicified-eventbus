@@ -1,6 +1,6 @@
 package org.robotninjas.guicebus.example.event;
 
-import org.robotninjas.guicebus.*;
+import org.robotninjas.guicebus.Event;
 
 public class Event2 implements Event {
 

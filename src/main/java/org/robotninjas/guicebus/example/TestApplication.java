@@ -8,6 +8,7 @@ import com.google.inject.Injector;
 import org.robotninjas.guicebus.*;
 import org.robotninjas.guicebus.example.controller.Command1;
 import org.robotninjas.guicebus.example.controller.Command2;
+import org.robotninjas.guicebus.example.controller.Command3;
 import org.robotninjas.guicebus.example.event.Event1;
 import org.robotninjas.guicebus.example.event.Event2;
 import org.robotninjas.guicebus.example.service.DatabaseService;
@@ -26,9 +27,10 @@ public class TestApplication extends AbstractModule {
 
     final Injector injector = Guice.createInjector(
         new TestApplication(),
-        new CommandModule(new CommandRegistration() {
+        new CommandModule(new CommandContext() {
           @Override public void configure(Multimap<Class<? extends Command>, Class<? extends Event>> eventMap) {
             eventMap.put(Command1.class, Event1.class);
+            eventMap.put(Command3.class, Event1.class);
             eventMap.put(Command2.class, Event2.class);
           }
         }));
